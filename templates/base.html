@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой блог{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <img src="{% static 'images/logo.svg' %}" alt="Логотип блога" class="logo-img">
+                <h1 class="site-title">Учебный блог</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="{% url 'home' %}">Главная</a>
+                <a href="{% url 'about' %}">О блоге</a>
+                <a href="{% url 'reviews' %}">Книга отзывов</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 Учебный блог. Дисциплина "Технологии создания интернет-приложений".</p>
+        </div>
+    </footer>
+</body>
+</html>

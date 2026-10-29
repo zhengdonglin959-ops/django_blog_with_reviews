@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Книга отзывов — Мой блог{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <h2>Книга отзывов</h2>
+    <p class="page-lead">Оставьте свой отзыв о блоге. Отзывы появляются на странице после проверки администратором.</p>
+</section>
+
+<section class="review-form-section">
+    <h3>Оставить отзыв</h3>
+    <form method="post" class="review-form" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="form-errors">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for field in form %}
+            <div class="form-field">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="field-errors">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn-submit">Отправить отзыв</button>
+    </form>
+</section>
+
+<section class="review-list-section">
+    <h3>Опубликованные отзывы <span class="review-count">({{ reviews|length }})</span></h3>
+    {% if reviews %}
+        <div class="review-list">
+            {% for r in reviews %}
+                <article class="review-card">
+                    <div class="review-head">
+                        <strong class="review-author">{{ r.fio }}</strong>
+                        <span class="review-date">{{ r.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <p class="review-text">{{ r.text|linebreaksbr }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-reviews">Пока нет опубликованных отзывов. Станьте первым!</p>
+    {% endif %}
+</section>
+{% endblock %}

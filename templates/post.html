@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} — Мой блог{% endblock %}
+
+{% block content %}
+<article class="post-detail">
+    <div class="post-detail-meta">
+        <span class="post-date">{{ post.date }}</span>
+        {% if post.author %}
+        <span class="post-author">Автор: {{ post.author }}</span>
+        {% endif %}
+    </div>
+    <h2 class="post-detail-title">{{ post.title }}</h2>
+    <div class="post-detail-content">
+        <p>{{ post.content }}</p>
+    </div>
+    <div class="post-back">
+        <a href="{% url 'home' %}">← Вернуться к списку постов</a>
+    </div>
+</article>
+{% endblock %}
